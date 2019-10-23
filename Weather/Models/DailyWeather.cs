@@ -16,7 +16,7 @@ namespace Weather.Models
         public double TemperatureHigh { get; set; }
         public double TemperatureLow { get; set; }
         public double Pressure { get; set; }
-        public int UVIndex { get; set; }
+        public double Wind { get; set; }
         public Localization Localization { get; set; }
 
         public DailyWeather()
@@ -32,7 +32,7 @@ namespace Weather.Models
             TemperatureHigh = forecast.Daily.Data[dayIndex].TemperatureHigh ?? 0;
             TemperatureLow = forecast.Daily.Data[dayIndex].TemperatureLow ?? 0;
             Pressure = forecast.Daily.Data[dayIndex].Pressure ?? 0;
-            UVIndex = forecast.Daily.Data[dayIndex].UvIndex ?? 0;
+            Wind = forecast.Daily.Data[dayIndex].WindSpeed ?? 0;
         }
     }
 }
