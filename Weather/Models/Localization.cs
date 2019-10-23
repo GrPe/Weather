@@ -14,7 +14,7 @@ namespace Weather.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public DateTime LastUpdate { get; set; }
-        public ICollection<DailyWeather> DailyWeathers { get; set; }
+        public virtual ICollection<DailyWeather> DailyWeathers { get; set; }
 
         public Localization()
         { 
