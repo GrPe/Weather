@@ -42,23 +42,28 @@ namespace Weather.Models
             var weatherLublin = new List<DailyWeather>()
             {
                 //City = "Lublin", Icon = "cloudy", Latitude = 51.246452, Longitude = 22.568445
-                new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 10), TemperatureHigh = 20 , Localization = lublin},
-                new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 11), TemperatureHigh = 20 , Localization = lublin},
-                new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 12), TemperatureHigh = 20 , Localization = lublin}
+                new DailyWeather { Icon = "clear-day", Time = new DateTime(2019, 10, 10), TemperatureHigh = 15 , Localization = lublin},
+                new DailyWeather { Icon = "clear-night", Time = new DateTime(2019, 10, 11), TemperatureHigh = 0 , Localization = lublin},
+                new DailyWeather { Icon = "rain", Time = new DateTime(2019, 10, 12), TemperatureHigh = 20 , Localization = lublin},
+                new DailyWeather { Icon = "snow", Time = new DateTime(2019, 10, 13), TemperatureHigh = 14 , Localization = lublin},
+                new DailyWeather { Icon = "sleet", Time = new DateTime(2019, 10, 14), TemperatureHigh = 24 , Localization = lublin},
+                new DailyWeather { Icon = "wind", Time = new DateTime(2019, 10, 15), TemperatureHigh = 19 , Localization = lublin},
+                new DailyWeather { Icon = "fog", Time = new DateTime(2019, 10, 16), TemperatureHigh = 18 , Localization = lublin}
             };
             context.DailyWeather.AddRange(weatherLublin);
-            lublin.DailyWeathers.Add(weatherLublin[0]);
-            lublin.DailyWeathers.Add(weatherLublin[1]);
-            lublin.DailyWeathers.Add(weatherLublin[2]);
+            foreach(var w in weatherLublin)
+            {
+                lublin.DailyWeathers.Add(w);
+            }
             context.Localizations.Add(lublin);
 
 
-            Localization newyork = new Localization { Name = "New York", Latitude = 40.730610, Longitude = -73.935242, LastUpdate = new DateTime(2019, 10, 10) };
+            Localization newyork = new Localization { Name = "Nowy York", Latitude = 40.730610, Longitude = -73.935242, LastUpdate = new DateTime(2019, 10, 10) };
             var weatherNewYork = new List<DailyWeather>()
             {
                 //City = "Lublin", Icon = "cloudy", Latitude = 51.246452, Longitude = 22.568445
                 new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 10), TemperatureHigh = 20 , Localization = newyork},
-                new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 11), TemperatureHigh = 20 , Localization = newyork},
+                new DailyWeather { Icon = "partly-cloudy-night", Time = new DateTime(2019, 10, 11), TemperatureHigh = 20 , Localization = newyork},
                 new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 12), TemperatureHigh = 20 , Localization = newyork}
             };
             context.DailyWeather.AddRange(weatherNewYork);
@@ -67,11 +72,11 @@ namespace Weather.Models
             newyork.DailyWeathers.Add(weatherNewYork[2]);
             context.Localizations.Add(newyork);
 
-            Localization tokyo = new Localization { Name = "New York", Latitude = 35.652832, Longitude = 139.839478, LastUpdate = new DateTime(2019, 10, 10) };
+            Localization tokyo = new Localization { Name = "Tokio", Latitude = 35.652832, Longitude = 139.839478, LastUpdate = new DateTime(2019, 10, 10) };
             var weatherTokyo = new List<DailyWeather>()
             {
                 //City = "Lublin", Icon = "cloudy", Latitude = 51.246452, Longitude = 22.568445
-                new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 10), TemperatureHigh = 20 , Localization = tokyo},
+                new DailyWeather { Icon = "partly-cloudy-day", Time = new DateTime(2019, 10, 10), TemperatureHigh = 20 , Localization = tokyo},
                 new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 11), TemperatureHigh = 20 , Localization = tokyo},
                 new DailyWeather { Icon = "cloudy", Time = new DateTime(2019, 10, 12), TemperatureHigh = 20 , Localization = tokyo}
             };
