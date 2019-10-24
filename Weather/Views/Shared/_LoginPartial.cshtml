@@ -5,7 +5,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.ActionLink("Panel administratora", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
-        <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a>
     }
 }
 else

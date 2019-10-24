@@ -18,7 +18,7 @@ namespace Weather
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //DatabaseInitializer.Init(new ApplicationDbContext());
+            DatabaseInitializer.Init(new ApplicationDbContext());
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using DarkSky.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Weather.Models
 {
@@ -59,6 +59,9 @@ namespace Weather.Models
     {
         public static void Init(ApplicationDbContext context)
         {
+            if (context.Localizations.Count() != 0)
+                return;
+
             Localization lublin = new Localization { Name = "Lublin", Latitude = 51.246452, Longitude = 22.568445, LastUpdate = new DateTime(2019, 10, 10) };
             context.Localizations.Add(lublin);
             context.SaveChanges();
