@@ -24,14 +24,35 @@ namespace Weather.Models
             return new ApplicationDbContext();
         }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Localization>()
-        //        .HasMany(l => l.DailyWeathers)
-        //        .WithRequired(w => w.Localization)
-        //        .WillCascadeOnDelete(false);
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        public IEnumerable<WeatherViewModel> GetActualWeatherForAllLocalizations()
+        {
+            var list = from loc in Localizations select new WeatherViewModel { City = loc.Name, Weather = loc.DailyWeathers.OrderBy(w => w.Time).FirstOrDefault() };
+
+            return list;
+        }
+
+        public Localization GetLocalization(string name)
+        {
+            return Localizations.FirstOrDefault(l => l.Name == name);
+        }
+
+        public void UpdateForecastForLocalization(string locName, DarkSky.Models.Forecast forecast)
+        {
+            Localization localization = GetLocalization(locName);
+
+            if (localization == null)
+                return;
+
+            DailyWeather.RemoveRange(localization.DailyWeathers);
+
+            foreach(var day in forecast.Daily.Data)
+            {
+                DailyWeather.Add(new Models.DailyWeather(day, localization.LocalizationId));
+            }
+            localization.LastUpdate = DateTime.Now;
+
+            SaveChanges();
+        }
     }
 
     public static class DatabaseInitializer

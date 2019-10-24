@@ -59,8 +59,7 @@ namespace Weather.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var list = from loc in db.Localizations select new WeatherViewModel { City = loc.Name, Weather = loc.DailyWeathers.FirstOrDefault() };
-            return View(list);
+            return View(db.GetActualWeatherForAllLocalizations());
         }
 
         [HttpGet]
@@ -70,9 +69,24 @@ namespace Weather.Controllers
         }
 
         [HttpPost, ActionName("UpdateAll")]
-        public ActionResult ConfirmUpdateAll()
+        public async Task<ActionResult> ConfirmUpdateAll()
         {
+            DarkSky.Services.DarkSkyService darkSkyService = new DarkSky.Services.DarkSkyService(apiKey);
+            DarkSky.Models.OptionalParameters parameters = new DarkSky.Models.OptionalParameters()
+            {
+                MeasurementUnits = "si",
+                LanguageCode = "pl"
+            };
 
+            foreach (var loc in db.Localizations)
+            {
+                var forecast = await darkSkyService.GetForecast(loc.Latitude, loc.Longitude, parameters);
+
+                if(forecast.IsSuccessStatus == true)
+                {
+                    db.UpdateForecastForLocalization(loc.Name, forecast.Response);
+                }
+            }
 
             return RedirectToAction("Index");
         }
@@ -85,7 +99,7 @@ namespace Weather.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Localization localization = db.Localizations.FirstOrDefault(l => l.Name == id);
+            Localization localization = db.GetLocalization(id);
 
             if (localization == null)
             {
@@ -113,25 +127,17 @@ namespace Weather.Controllers
             }
 
             DarkSky.Services.DarkSkyService darkSkyService = new DarkSky.Services.DarkSkyService(apiKey);
-            DarkSky.Models.OptionalParameters parameters = new DarkSky.Models.OptionalParameters();
-            parameters.MeasurementUnits = "si";
-            parameters.LanguageCode = "pl";
+            DarkSky.Models.OptionalParameters parameters = new DarkSky.Models.OptionalParameters()
+            {
+                MeasurementUnits = "si",
+                LanguageCode ="pl"
+            };
+            
             var forecast = await darkSkyService.GetForecast(localization.Latitude, localization.Longitude,parameters);
 
             if(forecast?.IsSuccessStatus == true)
             {
-                db.DailyWeather.RemoveRange(localization.DailyWeathers);
-
-                foreach (var day in forecast.Response.Daily.Data)
-                {
-                    db.DailyWeather.Add(new DailyWeather(day, localization.LocalizationId));
-                }
-                localization.LastUpdate = DateTime.Now;
-                db.SaveChanges();
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                db.UpdateForecastForLocalization(id, forecast.Response);
             }
 
             return RedirectToAction("Index");

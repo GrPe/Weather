@@ -14,9 +14,7 @@ namespace Weather.Controllers
 
         public ActionResult Index()
         {
-            var list = from loc in db.Localizations select new WeatherViewModel { City = loc.Name, Weather = loc.DailyWeathers.FirstOrDefault() };
-
-            return View(list);
+            return View(db.GetActualWeatherForAllLocalizations());
         }
 
         public ActionResult Details(string id)
@@ -26,7 +24,7 @@ namespace Weather.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Localization localization = db.Localizations.FirstOrDefault(l => l.Name == id);
+            Localization localization = db.GetLocalization(id);
             ViewBag.Title = localization.Name;
             if (localization == null)
             {
