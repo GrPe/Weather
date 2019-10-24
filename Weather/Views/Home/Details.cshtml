@@ -1,13 +1,15 @@
 ﻿@model Weather.Models.Localization
 
-<h2>@ViewBag.Title</h2>
+<div class="jumbotron">
+    <h2>@ViewBag.Title</h2>
+</div>
 
 <div class="container">
     <div class="row">
         @foreach (var weather in Model.DailyWeathers)
         {
         <div class="card col-lg-2 mr-3 mb-3" style="width: 15rem;">
-            <img src="@("/Content/images/120/" + weather.Icon + ".png")" />
+            <img src="@("/Content/images/120/" + weather.Icon + ".png")"/>
             <div class="card-body">
                 <h5 class="card-title text-center">@(weather.Time.Day).@(weather.Time.Month)</h5>
                 <p class="card-text text-center">@((new System.Globalization.CultureInfo("pl-PL")).DateTimeFormat.GetDayName(weather.Time.DayOfWeek).ToUpperInvariant())</p>
