@@ -34,8 +34,8 @@ namespace Weather.Models
             Summary = forecast.Summary;
             Icon = forecast.Icon.ToString();
             Time = forecast.DateTime.DateTime;
-            TemperatureHigh = forecast.TemperatureHigh ?? 0;
-            TemperatureLow = forecast.TemperatureLow ?? 0;
+            TemperatureHigh = Math.Round(forecast.TemperatureHigh ?? 0);
+            TemperatureLow = Math.Round(forecast.TemperatureLow ?? 0);
             Pressure = forecast.Pressure ?? 0;
             Wind = forecast.WindSpeed ?? 0;
             LocalizationId = locId;
