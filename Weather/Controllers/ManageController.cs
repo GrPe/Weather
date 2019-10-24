@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -16,7 +17,8 @@ namespace Weather.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = ApplicationDbContext.Create();
+        private string apiKey = "25e71403e9e869e1e562f82c2d2e3101";
 
         public ManageController()
         {
@@ -54,19 +56,73 @@ namespace Weather.Controllers
 
         //
         // GET: /Manage/Index
+        [HttpGet]
         public ActionResult Index()
         {
             var list = from loc in db.Localizations select new WeatherViewModel { City = loc.Name, Weather = loc.DailyWeathers.FirstOrDefault() };
             return View(list);
         }
 
-        [HttpPut]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(int id)
+        [HttpGet]
+        public ActionResult Update(string id)
         {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            Localization localization = db.Localizations.FirstOrDefault(l => l.Name == id);
 
-            return View();
+            if (localization == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(localization);
+        }
+
+        [HttpPost, ActionName("Update")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateConfirm(string id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
+
+            Localization localization = db.Localizations.FirstOrDefault(l => l.Name == id);
+
+            if(localization == null)
+            {
+                return HttpNotFound();
+            }
+
+            DarkSky.Services.DarkSkyService darkSkyService = new DarkSky.Services.DarkSkyService(apiKey);
+            DarkSky.Models.OptionalParameters parameters = new DarkSky.Models.OptionalParameters();
+            parameters.MeasurementUnits = "si";
+            parameters.LanguageCode = "pl";
+            var forecast = await darkSkyService.GetForecast(localization.Latitude, localization.Longitude,parameters);
+
+            if(forecast?.IsSuccessStatus == true)
+            {
+                db.DailyWeather.RemoveRange(localization.DailyWeathers);
+                localization.DailyWeathers.Clear();
+
+                foreach (var day in forecast.Response.Daily.Data)
+                {
+                    db.DailyWeather.Add(new DailyWeather(day, localization));
+                    localization.DailyWeathers.Add(new DailyWeather(day, localization));
+                }
+                localization.LastUpdate = DateTime.Now;
+                db.SaveChanges();
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
