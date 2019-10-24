@@ -17,22 +17,23 @@ namespace Weather.Models
         public double TemperatureLow { get; set; }
         public double Pressure { get; set; }
         public double Wind { get; set; }
-        public Localization Localization { get; set; }
+        public virtual Localization Localization { get; set; }
 
         public DailyWeather()
         {
 
         }
 
-        public DailyWeather(DarkSky.Models.Forecast forecast, int dayIndex)
+        public DailyWeather(DarkSky.Models.DataPoint forecast, Localization loc)
         {
-            Summary = forecast.Daily.Data[dayIndex].Summary;
-            Icon = forecast.Daily.Data[dayIndex].Icon.ToString();
-            Time = forecast.Daily.Data[dayIndex].DateTime.DateTime;
-            TemperatureHigh = forecast.Daily.Data[dayIndex].TemperatureHigh ?? 0;
-            TemperatureLow = forecast.Daily.Data[dayIndex].TemperatureLow ?? 0;
-            Pressure = forecast.Daily.Data[dayIndex].Pressure ?? 0;
-            Wind = forecast.Daily.Data[dayIndex].WindSpeed ?? 0;
+            Summary = forecast.Summary;
+            Icon = forecast.Icon.ToString();
+            Time = forecast.DateTime.DateTime;
+            TemperatureHigh = forecast.TemperatureHigh ?? 0;
+            TemperatureLow = forecast.TemperatureLow ?? 0;
+            Pressure = forecast.Pressure ?? 0;
+            Wind = forecast.WindSpeed ?? 0;
+            Localization = loc;
         }
     }
 }
