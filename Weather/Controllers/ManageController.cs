@@ -107,12 +107,10 @@ namespace Weather.Controllers
             if(forecast?.IsSuccessStatus == true)
             {
                 db.DailyWeather.RemoveRange(localization.DailyWeathers);
-                localization.DailyWeathers.Clear();
 
                 foreach (var day in forecast.Response.Daily.Data)
                 {
-                    db.DailyWeather.Add(new DailyWeather(day, localization));
-                    localization.DailyWeathers.Add(new DailyWeather(day, localization));
+                    db.DailyWeather.Add(new DailyWeather(day, localization.LocalizationId));
                 }
                 localization.LastUpdate = DateTime.Now;
                 db.SaveChanges();

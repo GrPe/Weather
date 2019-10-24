@@ -229,12 +229,13 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <None Include="Content\images\120\ClearDay" />
+    <Content Include="Content\images\120\ClearDay.png" />
     <Content Include="Content\images\120\ClearNight.png" />
     <Content Include="Content\images\120\Cloudy.png" />
     <Content Include="Content\images\120\Fog.png" />
     <Content Include="Content\images\120\PartlyCloudyDay.png" />
     <Content Include="Content\images\120\PartlyCloudyNight.png" />
+    <Content Include="Content\images\120\Rain.png" />
     <Content Include="Content\images\120\Sleet.png" />
     <Content Include="Content\images\120\Snow.png" />
     <Content Include="Content\images\120\Wind.png" />

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace Weather.Models
 {
+    [Table("DailyWeathers")]
     public class DailyWeather
     {
         [Key]
@@ -17,6 +19,9 @@ namespace Weather.Models
         public double TemperatureLow { get; set; }
         public double Pressure { get; set; }
         public double Wind { get; set; }
+
+        [ForeignKey("Localization")]
+        public int LocalizationId { get; set; }
         public virtual Localization Localization { get; set; }
 
         public DailyWeather()
@@ -24,7 +29,7 @@ namespace Weather.Models
 
         }
 
-        public DailyWeather(DarkSky.Models.DataPoint forecast, Localization loc)
+        public DailyWeather(DarkSky.Models.DataPoint forecast, int locId)
         {
             Summary = forecast.Summary;
             Icon = forecast.Icon.ToString();
@@ -33,7 +38,7 @@ namespace Weather.Models
             TemperatureLow = forecast.TemperatureLow ?? 0;
             Pressure = forecast.Pressure ?? 0;
             Wind = forecast.WindSpeed ?? 0;
-            Localization = loc;
+            LocalizationId = locId;
         }
     }
 }
