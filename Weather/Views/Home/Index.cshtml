@@ -7,30 +7,6 @@
 <table class="table table-hover">
     @foreach (var weather in Model)
     {
-        <tr>
-            <td class="align-middle h1">
-                @if (weather.Weather.Icon == "clear-day")
-                {
-                    <img src="https://img.icons8.com/ultraviolet/120/000000/sun.png">
-                }
-                else if (weather.Weather.Icon == "clear-night")
-                {
-                    <img src="https://img.icons8.com/ultraviolet/120/000000/night.png">
-                }
-                else if (weather.Weather.Icon == "cloudy")
-                {
-                    <img src="https://img.icons8.com/ultraviolet/120/000000/cloud.png">
-                }
-                else
-                {
-                    <img src="https://img.icons8.com/ultraviolet/120/000000/@(weather.Weather.Icon).png">
-                }
-            </td>
-            <td class="align-middle h3 font-weight-bold">@Html.DisplayFor(w => weather.Weather.TemperatureHigh) C</td>
-            <td class="align-middle h4">@Html.DisplayFor(w => weather.City)</td>
-            <td class="align-middle">
-                <a href="#"  role="button" class="btn btn-primary active" aria-pressed="true">Następne 7 dni</a>
-            </td>
-        </tr>
+        @Html.DisplayFor(w => weather, "DailyWeatherUserList");
     }
 </table>

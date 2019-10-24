@@ -314,6 +314,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Manage\DisplayTemplates\DailyWeatherList.cshtml" />
     <Content Include="Views\Manage\Update.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\DailyWeatherUserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

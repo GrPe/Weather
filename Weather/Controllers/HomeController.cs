@@ -19,14 +19,14 @@ namespace Weather.Controllers
             return View(list);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Localization localization = db.Localizations.FirstOrDefault(l => l.Id == id);
+            Localization localization = db.Localizations.FirstOrDefault(l => l.Name == id);
             ViewBag.Title = localization.Name;
             if (localization == null)
             {
