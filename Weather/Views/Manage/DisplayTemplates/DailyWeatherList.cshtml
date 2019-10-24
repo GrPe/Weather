@@ -1,0 +1,27 @@
+﻿@model Weather.Models.WeatherViewModel
+
+<tr>
+    <td class="align-middle h1">
+        @if (Model.Weather.Icon == "clear-day")
+        {
+            <img src="https://img.icons8.com/ultraviolet/120/000000/sun.png">
+        }
+        else if (Model.Weather.Icon == "clear-night")
+        {
+            <img src="https://img.icons8.com/ultraviolet/120/000000/night.png">
+        }
+        else if (Model.Weather.Icon == "cloudy")
+        {
+            <img src="https://img.icons8.com/ultraviolet/120/000000/cloud.png">
+        }
+        else
+        {
+            <img src="https://img.icons8.com/ultraviolet/120/000000/@(Model.Weather.Icon).png">
+        }
+    </td>
+    <td class="align-middle h3 font-weight-bold">@Html.DisplayFor(w => Model.Weather.TemperatureHigh) C</td>
+    <td class="align-middle h4">@Html.DisplayFor(w => Model.City)</td>
+    <td class="align-middle">
+        @Html.ActionLink("Aktualizuj", "Update", new { id = Model.City })
+    </td>
+</tr>
