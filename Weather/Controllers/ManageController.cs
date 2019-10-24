@@ -78,7 +78,9 @@ namespace Weather.Controllers
                 LanguageCode = "pl"
             };
 
-            foreach (var loc in db.Localizations)
+            var localizations = db.Localizations.ToList();
+
+            foreach (var loc in localizations)
             {
                 var forecast = await darkSkyService.GetForecast(loc.Latitude, loc.Longitude, parameters);
 
