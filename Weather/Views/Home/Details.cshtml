@@ -9,14 +9,14 @@
         <div class="card col-lg-2 mr-3 mb-3" style="width: 15rem;">
             <img src="@("/Content/images/120/" + weather.Icon + ".png")" />
             <div class="card-body">
-                <h5 class="card-title">@(weather.Time.Day).@(weather.Time.Month)</h5>
-                <p class="card-text">@((new System.Globalization.CultureInfo("pl-PL")).DateTimeFormat.GetDayName(weather.Time.DayOfWeek).ToUpperInvariant())</p>
-                <p class="card-text">@weather.Summary</p>
+                <h5 class="card-title text-center">@(weather.Time.Day).@(weather.Time.Month)</h5>
+                <p class="card-text text-center">@((new System.Globalization.CultureInfo("pl-PL")).DateTimeFormat.GetDayName(weather.Time.DayOfWeek).ToUpperInvariant())</p>
+                <p class="card-text text-center">@weather.Summary</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">@weather.TemperatureHigh&#176/@weather.TemperatureLow&#176</li>
-                <li class="list-group-item">Ciśnienie: @weather.Pressure hPa</li>
-                <li class="list-group-item">Wiatr: @weather.Wind km/h</li>
+                <li class="list-group-item text-center">@(Math.Round(weather.TemperatureHigh))&#176/@(Math.Round(weather.TemperatureLow))&#176</li>
+                <li class="list-group-item text-center">Ciśnienie<br/> @weather.Pressure hPa</li>
+                <li class="list-group-item text-center">Wiatr<br/> @weather.Wind km/h</li>
             </ul>
         </div>
         }
