@@ -1,13 +1,16 @@
 ﻿@model Weather.Models.Localization
 
-
-<h2>Czy na pewno chcesz zaktualizować pogodę w lokalizacji: @Model.Name</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Aktualizuj" class="btn btn-default active" aria-pressed="true" /> |
+    <div class="jumbotron">
+        <h2>Czy na pewno chcesz zaktualizować pogodę w lokalizacji @Model.Name</h2>
+        <hr class="my-4" />
+        <p class="lead">
+            <div class="form-actions no-color">
+                <input type="submit" value="Aktualizuj" class="btn btn-primary active" aria-pressed="true" />
+            </div>
+        </p>
     </div>
 }

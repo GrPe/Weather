@@ -22,6 +22,6 @@
     <td class="align-middle h3 font-weight-bold">@Html.DisplayFor(w => Model.Weather.TemperatureHigh) C</td>
     <td class="align-middle h4">@Html.DisplayFor(w => Model.City)</td>
     <td class="align-middle">
-        @Html.ActionLink("Aktualizuj", "Update", new { id = Model.City })
+        @Html.ActionLink("Aktualizuj", "Update", new { id = Model.City }, new { @class = "btn btn-primary active" })
     </td>
 </tr>
