@@ -1,0 +1,14 @@
+﻿@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="jumbotron">
+        <h2>Czy na pewno chcesz zaktualizować pogodę w we wszystkich lokalizacjach</h2>
+        <hr class="my-4" />
+        <p class="lead">
+            <div class="form-actions no-color">
+                <input type="submit" value="Aktualizuj" class="btn btn-primary active" aria-pressed="true" />
+            </div>
+        </p>
+    </div>
+}

@@ -64,6 +64,20 @@ namespace Weather.Controllers
         }
 
         [HttpGet]
+        public ActionResult UpdateAll()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("UpdateAll")]
+        public ActionResult ConfirmUpdateAll()
+        {
+
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public ActionResult Update(string id)
         {
             if(id == null)

@@ -6,6 +6,8 @@
 <table class="table table-hover">
     @foreach (var weather in Model)
     {
-       @Html.DisplayFor(w => weather, "DailyWeatherList");
+        @Html.DisplayFor(w => weather, "DailyWeatherList");
     }
 </table>
+
+@Html.ActionLink("Aktualizuj wszystkie", "UpdateAll", new { }, new { @class = "btn btn-primary active" })
