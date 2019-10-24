@@ -6,34 +6,19 @@
     <div class="row">
         @foreach (var weather in Model.DailyWeathers)
         {
-            <div class="card col-lg-2 mr-4 mb-4" style="width: 15rem;">
-                @if (weather.Icon == "clear-day")
-                {
-                    <img src="https://img.icons8.com/ultraviolet/240/000000/sun.png" class="card-img-top" alt="@weather.Icon">
-                }
-                else if (weather.Icon == "clear-night")
-                {
-                    <img src="https://img.icons8.com/ultraviolet/240/000000/night.png" class="card-img-top" alt="@weather.Icon">
-                }
-                else if (weather.Icon == "cloudy")
-                {
-                    <img src="https://img.icons8.com/ultraviolet/240/000000/cloud.png" class="card-img-top" alt="@weather.Icon">
-                }
-                else
-                {
-                    <img src="https://img.icons8.com/ultraviolet/240/000000/@(weather.Icon).png" class="card-img-top" alt="@weather.Icon">
-                }
-                <div class="card-body">
-                    <h5 class="card-title">@(weather.Time.Day).@(weather.Time.Month)</h5>
-                    <p class="card-text">@((new System.Globalization.CultureInfo("pl-PL")).DateTimeFormat.GetDayName(weather.Time.DayOfWeek).ToUpperInvariant())</p>
-                    <p class="card-text">@weather.Summary</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@weather.TemperatureHigh&#176/@weather.TemperatureLow&#176</li>
-                    <li class="list-group-item">Ciśnienie: @weather.Pressure hPa</li>
-                    <li class="list-group-item">Wiatr: @weather.Wind km/h</li>
-                </ul>
+        <div class="card col-lg-2 mr-3 mb-3" style="width: 15rem;">
+            <img src="@("/Content/images/120/" + weather.Icon + ".png")" />
+            <div class="card-body">
+                <h5 class="card-title">@(weather.Time.Day).@(weather.Time.Month)</h5>
+                <p class="card-text">@((new System.Globalization.CultureInfo("pl-PL")).DateTimeFormat.GetDayName(weather.Time.DayOfWeek).ToUpperInvariant())</p>
+                <p class="card-text">@weather.Summary</p>
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">@weather.TemperatureHigh&#176/@weather.TemperatureLow&#176</li>
+                <li class="list-group-item">Ciśnienie: @weather.Pressure hPa</li>
+                <li class="list-group-item">Wiatr: @weather.Wind km/h</li>
+            </ul>
+        </div>
         }
 
     </div>
